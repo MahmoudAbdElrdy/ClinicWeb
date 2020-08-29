@@ -1,0 +1,14 @@
+E:\clinic\ClinicBackend\Services\bin\Debug\netcoreapp3.1\Services.deps.json
+E:\clinic\ClinicBackend\Services\bin\Debug\netcoreapp3.1\Services.dll
+E:\clinic\ClinicBackend\Services\obj\Debug\netcoreapp3.1\Services.csprojAssemblyReference.cache
+E:\clinic\ClinicBackend\Services\obj\Debug\netcoreapp3.1\Services.AssemblyInfoInputs.cache
+E:\clinic\ClinicBackend\Services\obj\Debug\netcoreapp3.1\Services.AssemblyInfo.cs
+E:\clinic\ClinicBackend\Services\bin\Debug\netcoreapp3.1\Services.pdb
+E:\clinic\ClinicBackend\Services\bin\Debug\netcoreapp3.1\ApplicationCore.dll
+E:\clinic\ClinicBackend\Services\bin\Debug\netcoreapp3.1\DataAccessLayer.dll
+E:\clinic\ClinicBackend\Services\bin\Debug\netcoreapp3.1\ApplicationCore.pdb
+E:\clinic\ClinicBackend\Services\bin\Debug\netcoreapp3.1\DataAccessLayer.pdb
+E:\clinic\ClinicBackend\Services\obj\Debug\netcoreapp3.1\Services.csproj.CoreCompileInputs.cache
+E:\clinic\ClinicBackend\Services\obj\Debug\netcoreapp3.1\Services.csproj.CopyComplete
+E:\clinic\ClinicBackend\Services\obj\Debug\netcoreapp3.1\Services.dll
+E:\clinic\ClinicBackend\Services\obj\Debug\netcoreapp3.1\Services.pdb
