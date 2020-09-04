@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class ServicesClinic : BaseServices,IServicesClinic
+    public class ServicesItems : BaseServices,IServicesItems
     {
        
         
-        public ServicesClinic(IUnitOfWork unitOfWork, IResponseDTO responseDTO, IMapper mapper)
+        public ServicesItems(IUnitOfWork unitOfWork, IResponseDTO responseDTO, IMapper mapper)
             : base(unitOfWork,responseDTO,mapper)
         {
            
@@ -28,9 +28,9 @@ namespace Services.Services
         
             try
             {
-                var result = _unitOfWork.Clinic.GetAll();
+                var result = _unitOfWork.Items.GetAll();
 
-                var resultList = _mapper.Map<List<ClinicViewModel>>(result);
+                var resultList = _mapper.Map<List<ItemsViewModel>>(result);
                 _response.Data = resultList;
                 _response.IsPassed = true;
                 _response.Message = "Done";
@@ -45,12 +45,12 @@ namespace Services.Services
         }
 
         
-     public   IResponseDTO Delete(ClinicViewModel model)
+     public   IResponseDTO Delete(ItemsViewModel model)
         {
             try
             {
-                var DBmodel = _mapper.Map<Clinic>(model);
-                var entityEntry = _unitOfWork.Clinic.Remove(DBmodel);
+                var DBmodel = _mapper.Map<Items>(model);
+                var entityEntry = _unitOfWork.Items.Remove(DBmodel);
 
                 int save = _unitOfWork.Commit();
                 if (save == 200)
@@ -79,10 +79,10 @@ namespace Services.Services
         {
             try
             {
-                var Dbmodel =await _unitOfWork.Clinic.GetByIdAsync(id);
+                var Dbmodel =await _unitOfWork.Items.GetByIdAsync(id);
 
-                var ClinicViewModel = _mapper.Map<ClinicViewModel>(Dbmodel);
-                _response.Data = ClinicViewModel;
+                var ItemsViewModel = _mapper.Map<ItemsViewModel>(Dbmodel);
+                _response.Data = ItemsViewModel;
                 _response.IsPassed = true;
                 _response.Message = "Done";
             }
@@ -95,19 +95,19 @@ namespace Services.Services
             return _response;
         }
 
-      public async Task<IResponseDTO> InsertAsync(ClinicViewModel entity)
+      public async Task<IResponseDTO> InsertAsync(ItemsViewModel entity)
         {
             try
             {
-                var ViewModel = _mapper.Map<Clinic>(entity);
-                var Dbmodel =await _unitOfWork.Clinic.InsertAsync(ViewModel);
+                var ViewModel = _mapper.Map<Items>(entity);
+                var Dbmodel =await _unitOfWork.Items.InsertAsync(ViewModel);
                
                 int save = _unitOfWork.Commit();
 
                 if (save == 200)
                 {
-                    var ClinicViewModel = _mapper.Map<ClinicViewModel>(Dbmodel);
-                    _response.Data = ClinicViewModel;
+                    var ItemsViewModel = _mapper.Map<ItemsViewModel>(Dbmodel);
+                    _response.Data = ItemsViewModel;
                     _response.IsPassed = true;
                     _response.Message = "Ok";
                 }
@@ -127,12 +127,12 @@ namespace Services.Services
             return _response;
         }
 
-      public  IResponseDTO Update(ClinicViewModel entity)
+      public  IResponseDTO Update(ItemsViewModel entity)
         {
             try
             {
-                var DbClinic= _mapper.Map<Clinic>(entity);
-                 _unitOfWork.Clinic.Update(DbClinic);
+                var DbItems= _mapper.Map<Items>(entity);
+                 _unitOfWork.Items.Update(DbItems);
                 int save = _unitOfWork.Commit();
 
                 if (save == 200)

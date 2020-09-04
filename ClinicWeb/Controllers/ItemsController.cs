@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Threading.Tasks;
-using ApplicationCore;
-using DataAccessLayer.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services;
+using Services.DTO;
+using Services.IServices;
 
 namespace ClinicWeb.Controllers
 {
@@ -14,62 +12,44 @@ namespace ClinicWeb.Controllers
 
   public class ItemsController : ControllerBase
   {
-    private readonly IGenericRepositry<Items> genericRepository;
-    public ItemsController(IGenericRepositry<Items> _genericRepository)
-    {
-      genericRepository = _genericRepository;
-    }
-    [HttpGet("GetAll")]
-    public ActionResult<IEnumerable<Items>> GetAll()
-    {
-      return Ok(genericRepository.GetAll());
-    }
-    [HttpGet("GetItems/{ItemsId}")]
-    public async Task<ActionResult> GetItemsByIdAsync(int ItemsId)
-    {
-      Items model = await genericRepository.GetByIdAsync(ItemsId);
-      return Ok(model);
-    }
+        private IServicesItems ServicesItems;
+        public ItemsController(IServicesItems _ServicesItems)
+        {
+            ServicesItems = _ServicesItems;
+        }
+        [HttpGet("GetAll")]
+        public IResponseDTO GetAll()
+        {
+            var result = ServicesItems.GetAll();
+            return result;
+        }
+        [HttpGet("GetItems/{ItemsId}")]
+        public async Task<IResponseDTO> GetItemsByIdAsync(int ItemsId)
+        {
+            var result = await ServicesItems.GetByIdAsync(ItemsId);
+            return result;
+        }
 
-    [HttpPut("EditItems/{id}")]
-    public async Task<ActionResult> EditItemsAsync([FromBody]Items model, int id)
-    {
+        [HttpPut("EditItems")]
+        public IResponseDTO EditItems([FromBody] ItemsViewModel model)
+        {
 
-      var gModel = await GetItemsByIdAsync(id);
-      if (ModelState.IsValid && gModel != null)
-      {
-        genericRepository.Update(model);
-        return Ok(model);
-      }
-      else
-      {
-        return BadRequest();
-      }
+            var result = ServicesItems.Update(model);
+            return result;
+        }
+
+        [HttpDelete("ItemsDelete")]
+        public IResponseDTO Delete([FromBody] ItemsViewModel model)
+        {
+
+            var result = ServicesItems.Delete(model);
+            return result;
+        }
+        [HttpPost("AddItems")]
+        public async Task<IResponseDTO> AddItemsAsync([FromBody] ItemsViewModel model)
+        {
+            var result = await ServicesItems.InsertAsync(model);
+            return result;
+        }
     }
-
-    [HttpDelete("Delete/{ItemsId}")]
-    public ActionResult Delete(int ItemsId)
-    {
-      try
-      {
-        genericRepository.Delete(ItemsId);
-
-        return Ok(true);
-      }
-      catch
-      {
-        return BadRequest(false);
-      }
-    }
-    [HttpPost("AddItems")]
-    public async Task<ActionResult> AddItemsAsync([FromBody]Items model)
-    {
-      if (ModelState.IsValid)
-      {
-        await genericRepository.InsertAsync(model);
-
-      }
-      return Ok(true);
-    }
-  }
 }

@@ -6,6 +6,9 @@ using ApplicationCore;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services;
+using Services.DTO;
+using Services.IServices;
 
 namespace ClinicWeb.Controllers
 {
@@ -14,62 +17,44 @@ namespace ClinicWeb.Controllers
 
   public class PatientController : ControllerBase
   {
-    private readonly IGenericRepositry<Patient> genericRepository;
-    public PatientController(IGenericRepositry<Patient> _genericRepository)
-    {
-      genericRepository = _genericRepository;
-    }
-    [HttpGet("GetAll")]
-    public ActionResult<IEnumerable<Patient>> GetAll()
-    {
-      return Ok(genericRepository.GetAll());
-    }
-    [HttpGet("GetPatient/{PatientId}")]
-    public async Task<ActionResult> GetPatientByIdAsync(int PatientId)
-    {
-      Patient model = await genericRepository.GetByIdAsync(PatientId);
-      return Ok(model);
-    }
+        private IServicesPatient ServicesPatient;
+        public PatientController(IServicesPatient _ServicesPatient)
+        {
+            ServicesPatient = _ServicesPatient;
+        }
+        [HttpGet("GetAll")]
+        public IResponseDTO GetAll()
+        {
+            var result = ServicesPatient.GetAll();
+            return result;
+        }
+        [HttpGet("GetPatient/{PatientId}")]
+        public async Task<IResponseDTO> GetPatientByIdAsync(int PatientId)
+        {
+            var result = await ServicesPatient.GetByIdAsync(PatientId);
+            return result;
+        }
 
-    [HttpPut("EditPatient/{id}")]
-    public async Task<ActionResult> EditPatientAsync([FromBody]Patient model, int id)
-    {
-      var gModel = await GetPatientByIdAsync(id);
+        [HttpPut("EditPatient")]
+        public IResponseDTO EditPatient([FromBody] PatientViewModel model)
+        {
 
-      if (ModelState.IsValid && gModel != null)
-      {
-        genericRepository.Update(model);
-        return Ok(model);
-      }
-      else
-      {
-        return BadRequest();
-      }
+            var result = ServicesPatient.Update(model);
+            return result;
+        }
+
+        [HttpDelete("PatientDelete")]
+        public IResponseDTO Delete([FromBody] PatientViewModel model)
+        {
+
+            var result = ServicesPatient.Delete(model);
+            return result;
+        }
+        [HttpPost("AddPatient")]
+        public async Task<IResponseDTO> AddPatientAsync([FromBody] PatientViewModel model)
+        {
+            var result = await ServicesPatient.InsertAsync(model);
+            return result;
+        }
     }
-
-    [HttpDelete("Delete/{PatientId}")]
-    public ActionResult Delete(int PatientId)
-    {
-      try
-      {
-        genericRepository.Delete(PatientId);
-
-        return Ok(true);
-      }
-      catch
-      {
-        return BadRequest(false);
-      }
-    }
-    [HttpPost("AddPatient")]
-    public async Task<ActionResult> AddPatientAsync([FromBody]Patient model)
-    {
-      if (ModelState.IsValid)
-      {
-        await genericRepository.InsertAsync(model);
-
-      }
-      return Ok(true);
-    }
-  }
 }

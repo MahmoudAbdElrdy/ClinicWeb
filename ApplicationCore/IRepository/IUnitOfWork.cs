@@ -12,5 +12,9 @@ namespace ApplicationCore.IRepository
         int Commit();
         Task<int> CommitAsync();
         IGenericRepositry<Clinic> Clinic { get; }
+        IGenericRepositry<Doctor> Doctor { get; }
+        IGenericRepositry<Items> Items { get; }
+        IGenericRepositry<Patient> Patient { get; }
+        IGenericRepositry<Store> Store { get; }
     }
 }

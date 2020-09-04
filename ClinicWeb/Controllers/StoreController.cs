@@ -6,6 +6,9 @@ using ApplicationCore;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services;
+using Services.DTO;
+using Services.IServices;
 
 namespace ClinicWeb.Controllers
 {
@@ -14,61 +17,44 @@ namespace ClinicWeb.Controllers
 
   public class StoreController : ControllerBase
   {
-    private readonly IGenericRepositry<Store> genericRepository;
-    public StoreController(IGenericRepositry<Store> _genericRepository)
-    {
-      genericRepository = _genericRepository;
-    }
-    [HttpGet("GetAll")]
-    public ActionResult<IEnumerable<Store>> GetAll()
-    {
-      return Ok(genericRepository.GetAll());
-    }
-    [HttpGet("GetStore/{StoreId}")]
-    public async Task<ActionResult> GetStoreByIdAsync(int StoreId)
-    {
-      Store model = await genericRepository.GetByIdAsync(StoreId);
-      return Ok(model);
-    }
+        private IServicesStore ServicesStore;
+        public StoreController(IServicesStore _ServicesStore)
+        {
+            ServicesStore = _ServicesStore;
+        }
+        [HttpGet("GetAll")]
+        public IResponseDTO GetAll()
+        {
+            var result = ServicesStore.GetAll();
+            return result;
+        }
+        [HttpGet("GetStore/{StoreId}")]
+        public async Task<IResponseDTO> GetStoreByIdAsync(int StoreId)
+        {
+            var result = await ServicesStore.GetByIdAsync(StoreId);
+            return result;
+        }
 
-    [HttpPut("EditStore/{id}")]
-    public async Task<ActionResult> EditStoreAsync([FromBody]Store model, int id)
-    {
-      var gModel = await GetStoreByIdAsync(id);
+        [HttpPut("EditStore")]
+        public IResponseDTO EditStore([FromBody] StoreViewModel model)
+        {
 
-      if (ModelState.IsValid && gModel != null)
-      {
-        genericRepository.Update(model);
-        return Ok(model);
-      }
-      else
-      {
-        return BadRequest();
-      }
-    }
+            var result = ServicesStore.Update(model);
+            return result;
+        }
 
-    [HttpDelete("Delete/{StoreId}")]
-    public ActionResult Delete(int StoreId)
-    {
-      try
-      {
-        genericRepository.Delete(StoreId);
+        [HttpDelete("StoreDelete")]
+        public IResponseDTO Delete([FromBody] StoreViewModel model)
+        {
 
-        return Ok(true);
-      }
-      catch
-      {
-        return BadRequest(false);
-      }
+            var result = ServicesStore.Delete(model);
+            return result;
+        }
+        [HttpPost("AddStore")]
+        public async Task<IResponseDTO> AddStoreAsync([FromBody] StoreViewModel model)
+        {
+            var result = await ServicesStore.InsertAsync(model);
+            return result;
+        }
     }
-    [HttpPost("AddStore")]
-    public async Task<ActionResult> AddStoreAsync([FromBody]Store model)
-    {
-      if (ModelState.IsValid)
-      {
-        await genericRepository.InsertAsync(model);
-      }
-      return Ok(true);
-    }
-  }
 }

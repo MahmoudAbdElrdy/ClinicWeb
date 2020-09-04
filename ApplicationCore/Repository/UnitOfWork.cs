@@ -16,7 +16,7 @@ namespace ApplicationCore.Repository
         private readonly ApiContext _dbContext;
 
         private bool disposed = false;
-     //   private IConfiguration _Configuration { get; }
+        //   private IConfiguration _Configuration { get; }
         public UnitOfWork(ApiContext dbContext)
         {
             _dbContext = dbContext;
@@ -88,7 +88,7 @@ namespace ApplicationCore.Repository
         }
 
         // Clinic
-      
+
         public IGenericRepositry<Clinic> Clinic
         {
             get
@@ -97,7 +97,33 @@ namespace ApplicationCore.Repository
 
             }
         }
+        //Doctor
+        public IGenericRepositry<Doctor> Doctor
+        {
+            get
+            {
+                return new GenericRepository<Doctor>(_dbContext);
 
-       // IGenericRepositry<Clinic> IUnitOfWork.Clinic => throw new NotImplementedException();
+            }
+        }
+        //Items
+        public IGenericRepositry<Items> Items
+        {
+            get
+            {
+                return new GenericRepository<Items>(_dbContext);
+
+            }
+        }
+        //Patient
+        public IGenericRepositry<Patient> Patient
+        {
+            get
+            {
+                return new GenericRepository<Patient>(_dbContext);
+
+            }
+
+        }
     }
 }
