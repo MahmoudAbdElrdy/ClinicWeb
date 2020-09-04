@@ -128,6 +128,10 @@ namespace ClinicWeb
                services.AddScoped<IUnitOfWork, UnitOfWork>();
               services.AddScoped<IResponseDTO, ResponseDTO>();
               services.AddTransient<IServicesClinic, ServicesClinic>();
+              services.AddTransient<IServicesDoctor, ServicesDoctor>();
+              services.AddTransient<IServicesItems, ServicesItems>();
+              services.AddTransient<IServicesPatient, ServicesPatient>();
+              services.AddTransient<IServicesStore, ServicesStore>();
           
           
             services.AddCors(options =>

@@ -12,6 +12,10 @@ namespace Services.Mapper
         public DomainProfile()
         {
             CreateMap<ClinicViewModel, Clinic>().ReverseMap();
+            CreateMap<DoctorViewModel, Doctor>().ReverseMap();
+            CreateMap<ItemsViewModel, Items>().ReverseMap();
+            CreateMap<PatientViewModel, Patient>().ReverseMap();
+            CreateMap<StoreViewModel, Store>().ReverseMap();
         }
     }
 }
