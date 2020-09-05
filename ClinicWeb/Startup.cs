@@ -48,8 +48,10 @@ namespace ClinicWeb
           //  services.AddSwaggerGenNewtonsoftSupport();
             services.AddDbContext<ApiContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:ClinicDB"]));
 
-      // For Identity  
-      services.AddIdentity<ApplicationUser, IdentityRole>()
+            // For Identity  
+            services.AddControllers()
+                  .AddNewtonsoftJson();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
           .AddEntityFrameworkStores<ApiContext>()
           .AddDefaultTokenProviders();
       // Adding Authentication  

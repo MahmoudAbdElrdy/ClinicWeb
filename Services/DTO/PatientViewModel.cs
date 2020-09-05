@@ -8,22 +8,22 @@ namespace Services.DTO
 {
   public  class PatientViewModel
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Key]
         public long Id { get; set; }
-        [Required]
+       //[Required]
         public string FirstName { get; set; }
-        [Required]
+       //[Required]
         public string LastName { get; set; }
-        [Required]
+       //[Required]
         public Gender Gender { get; set; }
 
-        [Required(ErrorMessage = "Phone Number is needed.")]
-        [Display(Name = "Phone")]
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{4})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Invalid Phone number")]
+        //[Required(ErrorMessage = "Phone Number is needed.")]
+        //[Display(Name = "Phone")]
+        //[DataType(DataType.PhoneNumber)]
+        //[RegularExpression(@"^\(?([0-9]{4})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Invalid Phone number")]
         public string PhoneNumber { get; set; }
-        [Required]
+       //[Required]
         public int Age { get; set; }
     }
 }

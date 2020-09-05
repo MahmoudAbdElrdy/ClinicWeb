@@ -53,6 +53,8 @@ namespace ApplicationCore.Repository
                         else
                             returnValue = 500;
                     }
+                    else
+                        returnValue = 500;
                 }
                 catch (Exception ex)
                 {
@@ -121,6 +123,16 @@ namespace ApplicationCore.Repository
             get
             {
                 return new GenericRepository<Patient>(_dbContext);
+
+            }
+
+        }
+        //Store
+        public IGenericRepositry<Store> Store
+        {
+            get
+            {
+                return new GenericRepository<Store>(_dbContext);
 
             }
 
