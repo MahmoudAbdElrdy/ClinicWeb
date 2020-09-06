@@ -42,7 +42,7 @@ E:\clinic\ClinicBackend\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.
 E:\clinic\ClinicBackend\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.csprojAssemblyReference.cache
 E:\clinic\ClinicBackend\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.AssemblyInfoInputs.cache
 E:\clinic\ClinicBackend\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.AssemblyInfo.cs
-E:\clinic\ClinicBackend\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.csproj.CoreCompileInputs.cache
 E:\clinic\ClinicBackend\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.dll
 E:\clinic\ClinicBackend\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.pdb
 E:\clinic\ClinicBackend\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.genruntimeconfig.cache
+E:\clinic\ClinicBackend\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.csproj.CoreCompileInputs.cache
